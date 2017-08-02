@@ -7,17 +7,16 @@
     <script>
 
 //play
-$('#play').click( function() {
-    debugger;
+function play_button() {
     $('#player').get(0).play();
-});
+}
 
     </script>
 </head>
 <body>
 
     <div id="topcontrols" class="controls">
-        <div id="play"></div> 
+        <div id="play" onclick="play_button()"></div> 
     </div>
 
 <audio id="player" preload="auto"> 
