@@ -22,6 +22,7 @@
 
   <link rel="stylesheet" href="styles/main.css"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600" rel="stylesheet"/>
   <meta charset="utf-8"/>
 </head>
@@ -31,9 +32,17 @@
   <div id="status">Status: <span id="statusInner">Authenticating</span></div>
   <h3>You have two packages pending pickup: </h2>
   <div class="buttons">
-    <a onclick="return playChirp(identifiers[currentProtocol].identifier1);" href="#">Pickup First Package</a>
-    <a onclick="return playChirp(identifiers[currentProtocol].identifier2);" href="#">Pickup Second Package</a>
+    <a onclick="play_audio1()" href="#">Pickup First Package</a>
+    <a onclick="play_audio2()" href="#">Pickup Second Package</a>
   </div>
+
+  <audio id="audio1" preload="auto"> 
+   <source src="/media/abcd1008.wav" />
+  </audio>
+
+  <audio id="audio2" preload="auto">
+   <source src="/media/abcd1005.wav" />
+  </audio>
 
   <div id="results"></div>
 
@@ -43,14 +52,7 @@
 
 <div id="footer">
     <p>
-    <div class="buttons" id="setProtocolButtons">
-    <div class="switch">
-      <h2>Ultrasonic: </h2>
-      <input id="ultrasonic-toggle" class="cmn-toggle cmn-toggle-round" onchange="changeProtocol(this.checked)"
-             type="checkbox">
-      <label for="ultrasonic-toggle"></label>
-    </div>
-    </div>
+    Amazon Locker Web Access
     </p>
 </div>
 </body>
@@ -82,6 +84,16 @@
   };
 
   var currentProtocol = STANDARD;
+
+  function play_audio1() {
+      $('#audio1').get(0).play();
+      showMessage('Finished playing chirp');
+  }
+
+  function play_audio2() {
+      $('#audio2').get(0).play();
+      showMessage('Finished playing chirp');
+  }
 
   function changeProtocol(ultrasonic) {
     if (ultrasonic) {
