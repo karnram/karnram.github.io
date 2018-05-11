@@ -32,8 +32,7 @@
   <h1>Welcome to Amazon Lockers</h1>
   <h3>You have two packages pending pickup: </h2>
   <div class="buttons">
-    <a onclick="play_audio1()" href="#">Pickup First Package</a>
-    <a onclick="play_audio2()" href="#">Pickup Second Package</a>
+    <a onclick="playChirp()" href="#">Play Chirp</a>
   </div>
 
   <audio id="audio1" preload="auto"> 
@@ -56,20 +55,20 @@
 <script>
 
 window.onload = () => {
-  var audioContext = null;
-
-  /**
-   * Instantiates an audio context on which the Chirp will be played.
-   */
+  
   try {
     // Fix up for browser prefixing
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    audioContext = new AudioContext();
   } catch (e) {
     console.log(e);
   }
 
-  var Chirp = new ChirpConnect('27Fc79e6e49edDEdeBdb38da9', audioContext);
+  playChirp();
+};
+
+function playChirp() {
+
+  var Chirp = new ChirpConnect('27Fc79e6e49edDEdeBdb38da9', new AudioContext());
   Chirp.send(new Uint8Array([172, 47, 117, 192]), err => {
     if (err) {
       console.error(err);
