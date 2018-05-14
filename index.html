@@ -32,7 +32,11 @@
   <h1>Welcome to Amazon Lockers</h1>
   <h3>You have two packages pending pickup: </h2>
   <div class="buttons">
-    <a onclick="playChirp()" href="#">Play Chirp</a>
+    <a onclick="playChirp(1)" href="#">Open First Locker</a>
+  </div>
+
+  <div class="buttons">
+    <a onclick="playChirp(2)" href="#">Open Second Locker</a>
   </div>
 
   <audio id="audio1" preload="auto"> 
@@ -62,14 +66,13 @@ window.onload = () => {
   } catch (e) {
     console.log(e);
   }
-
-  playChirp();
 };
 
-function playChirp() {
+function playChirp(lockerId) {
 
   var Chirp = new ChirpConnect('27Fc79e6e49edDEdeBdb38da9', new AudioContext());
-  Chirp.send(new Uint8Array([172, 47, 117, 192]), err => {
+  var payload = lockerId === '1' ? [172, 47, 117, 192] : [80, 102, 42, 42];
+  Chirp.send(new Uint8Array(payload), err => {
     if (err) {
       console.error(err);
     } else {
