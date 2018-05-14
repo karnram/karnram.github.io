@@ -32,7 +32,7 @@
   <h1>Welcome to Amazon Lockers</h1>
   <h3>You have two packages pending pickup: </h2>
   <div class="buttons">
-    <a onclick="playChirp(1)" href="#">Open First Locker</a>
+    <a onclick="play_audio1()" href="#">Open First Locker</a>
   </div>
 
   <div class="buttons">
@@ -40,7 +40,7 @@
   </div>
 
   <audio id="audio1" preload="auto"> 
-   <source src="/media/abcd1008.wav" />
+   <source src="/media/ultrasonic.mp3" />
   </audio>
 
   <audio id="audio2" preload="auto">
@@ -67,6 +67,16 @@ window.onload = () => {
     console.log(e);
   }
 };
+
+function play_audio1() {
+  $('#audio1').get(0).play();
+  showMessage('Finished playing chirp');
+}
+  
+function play_audio2() {
+  $('#audio2').get(0).play();
+  showMessage('Finished playing chirp');
+}
 
 function playChirp(lockerId) {
 
