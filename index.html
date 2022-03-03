@@ -1,76 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>miBand demo</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-  <link rel="stylesheet" href="new.css">
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-  <script src="js/band.js"></script>
-  <script src="js/app.js"></script>
+  <title>Amazon Locker Web Access</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="styles/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="styles/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="styles/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="styles/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="styles/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="styles/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="styles/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="styles/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="styles/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="styles/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="styles/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="styles/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="styles/icons/favicon-16x16.png">
+  <link rel="manifest" href="styles/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="styles/main.css"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="js/chirp-v3.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600" rel="stylesheet"/>
+  <meta charset="utf-8"/>
 </head>
 <body>
-<section class="start-section">
-  <h1>Let's make some magic</h1>
-  <button class="connect-btn">Connect</a>
-</section>
-<section class="general-info-section hidden">
-  <h2>General Info</h2>
-  <div class="data-container">
-    <div class="data-cell device-name">
-      <p>Device name</p>
-      <p class="value"></p>
-    </div>
-    <div class="data-cell firmware-version">
-      <p>Firmware Version</p>
-      <p class="value"></p>
-    </div>
-    <div class="data-cell profileVersion">
-      <p>Profile Version</p>
-      <p class="value"></p>
-    </div>
-    <div class="data-cell ble-latency">
-      <p>BLE Latency</p>
-      <p class="value"></p>
-    </div>
-    <div class="data-cell ble-connectionInterval">
-      <p>BLE Connection Interval</p>
-      <p class="value"></p>
-    </div>
+<div id="main">
+  <h1>Welcome to Amazon Lockers</h1>
+  <h3>You have two packages pending pickup: </h2>
+  <div class="buttons">
+    <a onclick="play_audio1()" href="#">Open First Locker</a>
   </div>
-</section>
-<section class="battery-section hidden">
-  <h2>Battery Data</h2>
-  <div class="data-container">
-    <div class="data-cell last-charge">
-      <p>Last Charge</p>
-      <p class="value"></p>
-    </div>
-    <div class="data-cell charges">
-      <p>Amount of charges</p>
-      <p class="value"></p>
-      <p>times</p>
-    </div>
-    <div class="data-cell status">
-      <p>Status</p>
-      <p class="value"></p>
-    </div>
+
+  <div class="buttons">
+    <a onclick="play_audio2()" href="#">Open Second Locker</a>
   </div>
-  <div class="canvas-wrapper">
-    <p>Charge, %</p>
-    <canvas id="batteryLevel"></canvas>
-  </div>
-</section>
-<section class="steps-section hidden">
-  <h2>Steps Count</h2>
-  <h2 class="steps">
-    <span class="value">0</span>
-    step(s)
-  </h2>
-</section>
+
+  <audio id="audio1" preload="auto"> 
+   <source src="/media/ac2f75c0.mp3" />
+  </audio>
+
+  <audio id="audio2" preload="auto">
+   <source src="/media/2a64ff.mp3" />
+  </audio>
+
+  <div id="results"></div>
+</div>
+
+<div id="footer">
+    <p>
+    Amazon Locker Web Access
+    </p>
+</div>
 </body>
+<script>
+
+window.onload = () => {
+  
+  try {
+    // Fix up for browser prefixing
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+function play_audio1() {
+  $('#audio1').get(0).play();
+  showMessage('Finished playing chirp');
+}
+  
+function play_audio2() {
+  $('#audio2').get(0).play();
+  showMessage('Finished playing chirp');
+}
+
+function playChirp(lockerId) {
+
+  var Chirp = new ChirpConnect('27Fc79e6e49edDEdeBdb38da9', new AudioContext());
+  var payload = lockerId == 1 ? [172, 47, 117, 192] : [80, 102, 42, 42];
+  console.log("Received lockerId: " + lockerId + ", using payload: " + payload);
+  Chirp.send(new Uint8Array(payload), err => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('this will be logged after the payload has been sent');
+    }
+  });
+};
+
+</script>
 </html>
