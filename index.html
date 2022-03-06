@@ -30,21 +30,29 @@
 <body>
 <div id="main">
   <h1>Welcome to Amazon Lockers</h1>
-  <h3>You have two packages pending pickup: </h2>
+  <h3>You have three packages pending pickup: </h2>
   <div class="buttons">
-    <a onclick="play_audio1()" href="#">Open First Locker</a>
+    <a onclick="play_audio1()" href="#">Collect First Package</a>
   </div>
 
   <div class="buttons">
-    <a onclick="play_audio2()" href="#">Open Second Locker</a>
+    <a onclick="play_audio2()" href="#">Collect Second Package</a>
+  </div>
+
+  <div class="buttons">
+    <a onclick="play_audio3()" href="#">Collect Third Package</a>
   </div>
 
   <audio id="audio1" preload="auto"> 
-   <source src="/media/slot_id_19.wav" />
+   <source src="/media/slot_id_1.wav" />
   </audio>
 
   <audio id="audio2" preload="auto">
-   <source src="/media/slot_id_21.wav" />
+   <source src="/media/slot_id_2.wav" />
+  </audio>
+
+  <audio id="audio3" preload="auto">
+   <source src="/media/slot_id_3.wav" />
   </audio>
 
   <div id="results"></div>
