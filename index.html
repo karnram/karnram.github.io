@@ -86,19 +86,10 @@ function play_audio2() {
   showMessage('Finished playing chirp');
 }
 
-function playChirp(lockerId) {
-
-  var Chirp = new ChirpConnect('27Fc79e6e49edDEdeBdb38da9', new AudioContext());
-  var payload = lockerId == 1 ? [172, 47, 117, 192] : [80, 102, 42, 42];
-  console.log("Received lockerId: " + lockerId + ", using payload: " + payload);
-  Chirp.send(new Uint8Array(payload), err => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log('this will be logged after the payload has been sent');
-    }
-  });
-};
+function play_audio3() {
+  $('#audio3').get(0).play();
+  showMessage('Finished playing chirp');
+}
 
 </script>
 </html>
